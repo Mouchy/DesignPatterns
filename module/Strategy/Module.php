@@ -1,10 +1,11 @@
 <?php
-namespace Contrat;
+namespace Strategy;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
-use Contrat\Model\Contrat;
+use Strategy\Model\Context;
+use Strategy\Model\ConcreteStrategyA;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface
  {
@@ -31,16 +32,13 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
      {
          return array(
              'factories' => array(
-                 'Contrat\Model\Contrat' =>  function($sm) {
-                   
-                     $contrat = new contrat();
-					 if (is_object($contrat)) {
-						echo("getServiceConfig: contrat");
-					}
-                     return $contrat;
-                 },
-             ),
-         );
+                				 'Strategy\Model\Context' =>  function($sm) {
+                					 $concretestrategya = new ConcreteStrategyA();
+                                     $context = new context($concretestrategya);
+                                     return $context;
+                                 },
+                             ),
+                      );
      }
 	 
  }
